@@ -1,0 +1,67 @@
+%include "io64.inc"
+section .data
+
+vec1: Times 25 dd 0,1AAAAAAAh,10d,5AAAAAAAh
+vec2: Times 25 dd 0,50d,10d,30d
+temp dd '1'
+num dd 100
+
+
+section .bss
+
+res resd 1
+
+section .text
+global CMAIN
+CMAIN:
+    mov rbp, rsp; for correct debugging
+    mov ebp, esp;
+
+    
+    mov eax, 0
+    mov edx, vec1 
+    mov ecx, 2
+    
+    mov ebx, 0
+    
+         
+    l1:
+    
+    PRINT_UDEC 4,[edx]
+    ADD ebx, [edx]
+    ADD edx,4
+    NEWLINE
+    DEC ecx
+    JNZ l1
+    
+    ;mov cl,08 ; cдвиг вправо на 8
+    ;mov edx, 0
+   ; mov edx, ebx
+    ;mov eax,ebx ; 2ые 16
+    ;SHR edx, 16
+    
+    ;mov eax,0
+    
+    mov ax, bx
+    ;mov dx, bx ; 1ые 16
+    
+    
+    mov ecx, 0
+    mov cx, 100
+    cwd
+    
+    div cx
+    
+    PRINT_UDEC 4,ax
+    NEWLINE
+    PRINT_UDEC 4,dx
+              
+      
+    NEWLINE
+    PRINT_DEC 4,ebx
+    
+    xor edx,edx
+             
+        
+    xor rax, rax
+    ret
